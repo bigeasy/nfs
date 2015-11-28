@@ -1,0 +1,34 @@
+{
+    "name":             "nfsv4",
+    "version":          "9.9.9",
+    "author":           "Alan Gutierrez <alan@prettyrobots.com>",
+    "description":      "Pure JavaScript Node.js implemenation of an NFSv4 server.",
+    "keywords":
+    [
+                        "nfs"
+    ],
+    "license":          "MIT",
+    "homepage":         "https://github.com/bigeasy/nfs",
+    "bugs":             "https://github.com/bigeasy/nfs/issues",
+    "main":             "nfs",
+    "devDependencies":
+    {
+                        "proof": "0.0.56"
+    },
+    "dependencies":
+    {
+                        "arguable": "0.0.38",
+                        "packet": "0.0.7",
+                        "cadence": "0.4.1"
+    },
+    "repository":
+    {
+                        "type": "git",
+                        "url": "http://github.com/bigeasy/nfs.git"
+    },
+    "contributors":     [],
+    "scripts" :
+    {
+                        "test": "proof platform win32 && proof test */*/*.t.js || t/test"
+    }
+}
