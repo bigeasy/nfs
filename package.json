@@ -18,8 +18,10 @@
     "dependencies":
     {
                         "arguable": "0.0.38",
+                        "cadence": "0.4.1",
+                        "delta": "0.0.4",
                         "packet": "0.0.7",
-                        "cadence": "0.4.1"
+                        "reactor": "0.0.9"
     },
     "repository":
     {
