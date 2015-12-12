@@ -6,7 +6,7 @@ var path = require('path')
 
 var compiler = require('packet/compiler/require')
 var composer = require('packet/compose/parser/inc')
-var filename = path.resolve(__dirname, './generated/alternation.parse.inc.js')
+var filename = path.resolve(__dirname, './generated/nfs.parse.inc.js')
 
 var parsers = composer(compiler(filename), [{
     type: 'structure',
