@@ -1,4 +1,2 @@
-* [General troubleshooting
-recommendations](http://wiki.linux-nfs.org/wiki/index.php/General_troubleshooting_recommendations)
-&mdash; Here's a pretty good listing on how to debug NFS. Installation of TCP
-dump might require you to use full virtualization instead of containers to run.
+* [General troubleshooting recommendations](http://wiki.linux-nfs.org/wiki/index.php/General_troubleshooting_recommendations) &mdash; Here's a pretty good listing on how to debug NFS. Installation of TCP dump might require you to use full virtualization instead of containers to run.
+* Support of [AUTH\_SYS](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/s1-nfs-security.html) is all that is necessary.
