@@ -32,3 +32,19 @@ homeport run nfs --link=homeport-node.0.12.9:node
 homeport ssh nfs
 sudo mount -o sec=none $NODE_PORT_2049_TCP_ADDR:/mnt /mnt
 ```
+
+## Diary
+
+* [General troubleshooting
+recommendations](http://wiki.linux-nfs.org/wiki/index.php/General_troubleshooting_recommendations)
+&mdash; Here's a pretty good listing on how to debug NFS. Installation of TCP
+dump might require you to use full virtualization instead of containers to run.
+* Support of
+[AUTH\_SYS](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/s1-nfs-security.html)
+is all that is necessary.
+
+[7.1](https://tools.ietf.org/html/rfc1831#section-7.1) &mdash; The RPC call
+message has three unsigned integer fields -- remote program number, remote
+program version number, and remote procedure number -- which uniquely identify
+the procedure to be called. Program numbers are administered by a central
+authority (rpc@sun.com).
