@@ -32,13 +32,26 @@ Service.prototype.serve = cadence(function (async, status, socket) {
             }
         })()
     }, function (data) {
-        console.log(data.length)
         var frame = data.readUInt32BE(0)
         var last = !!(frame & ~0x80000000)
         var length = frame & ~0x80000000
-        console.log(last, length)
-        console.log(data.readUInt32BE(4))
-        console.log(data.toJSON())
+        var json = data.toJSON()
+        var nonce = data.readUInt32BE(4)
+        console.log({
+            recordLength: data.length,
+            last: !!(frame & ~0x80000000),
+            length: frame & ~0x80000000,
+            data: json.data || json,
+            nonce: data.readUInt32BE(4),
+            discriminator: data.readUInt32BE(8),
+            version: data.readUInt32BE(12),
+            programNumber: data.readUInt32BE(16),
+            programVersion: data.readUInt32BE(20),
+            procedureNumber: data.readUInt32BE(24),
+            credFlavor: data.readUInt32BE(28),
+            verfFlavor: data.readUInt32BE(32)
+        })
+        console.log(data.slice(36))
         return []
     })
 })
