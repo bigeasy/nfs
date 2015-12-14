@@ -1,5 +1,41 @@
 Pure JavaScript Node.js implemenation of an NFSv4 server.
 
+Create an Linux NFS daemon so you can test the Node.js NFS client and an Linux
+NFS client so you can test the Node.js NFS server.
+
+Create an NFS daemon image.
+
+```console
+homeport create nfsd
+homeport append nfsd formula/apt-get nfs-kernel-server
+homeport append nfsd formula/apt-get zsh vim man curl rsync git
+homeport append nfsd formula/locale en_US.UTF-8
+homeport append nfsd formula/chsh /usr/bin/zsh
+```
+
+Run `nfsd`. You need to use a volume in order to get an `ext4` filesytem for use
+with the NFS daemon. It won't work with the default container volumes because
+they are goofy filesystems like `aufs`.
+
+```console
+homeport run nfsd --privileged -p 2049 -v /srv
+```
+
+In that machine, create an `/etc/exports`.
+
+```console
+/srv/nfs4       *(rw,sync,no_subtree_check)
+```
+
+Run NFS.
+
+```
+sudo service rpcbind restart
+sudo service nfs-kernel-service restart
+```
+
+You'll want to connect from Node.js.
+
 Create a Node.js homeport image.
 
 ```console
@@ -10,16 +46,10 @@ homeport append node.0.12.9 formula/locale en_US.UTF-8
 homeport append node.0.12.9 formula/chsh /usr/bin/zsh
 ```
 
-*Ed: need instructions on how to build the NFS image.*
-
-```console
-homeport create nfs
-```
-
 Run the `tcp.js` stub.
 
 ```console
-homeport run node-0-12-9 -p 2049
+homeport run node-0-12-9 -p 2049 --link=homeport-nfsd:nfsd
 homeport ssh node-0-12-9
 cd ~/git/ecma/packet/nfs
 node tcp.js
@@ -28,9 +58,10 @@ node tcp.js
 Mount using NFS.
 
 ```console
-homeport run nfs --link=homeport-node.0.12.9:node
+homeport run nfs --link=homeport-node.0.12.9:node --link=homeport-nfsd:nfsd
 homeport ssh nfs
-sudo mount -o sec=none $NODE_PORT_2049_TCP_ADDR:/mnt /mnt
+sudo mount -o nolock $NODE_PORT_2049_TCP_ADDR:/mnt /mnt
+sudo mount -o nolock $NFSD_PORT_2049_TCP_ADDR:/mnt /mnt
 ```
 
 ## Diary
